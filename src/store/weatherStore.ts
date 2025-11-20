@@ -12,6 +12,10 @@ interface WeatherState {
     toggleMute: () => void;
 }
 
+/**
+ * Central Zustand store powering the Gemini 3 weather capsule.
+ */
+
 export const useWeatherStore = create<WeatherState>((set) => ({
     weather: 'sunny',
     isAudioStarted: false,

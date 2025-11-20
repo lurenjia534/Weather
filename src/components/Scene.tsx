@@ -7,7 +7,7 @@ import { BlendFunction, KernelSize } from 'postprocessing';
 import * as THREE from 'three';
 import { useWeatherStore } from '@/store/weatherStore';
 
-// 🌧️ 高级雨滴系统：使用 InstancedMesh 渲染数千个粒子，并计算拉伸
+// 🌧️ Advanced rain system using InstancedMesh for thousands of stretched droplets.
 const RainSystem = () => {
     const mesh = useRef<THREE.InstancedMesh | null>(null);
     const count = 1000;
@@ -29,7 +29,7 @@ const RainSystem = () => {
             p.y -= p.speed;
             if (p.y < -10) p.y = 10;
             dummy.position.set(p.x, p.y, p.z);
-            dummy.scale.set(0.02, 0.8, 0.02); // 极细长的雨丝
+            dummy.scale.set(0.02, 0.8, 0.02); // Thin rain streak
             dummy.updateMatrix();
             instanced.setMatrixAt(i, dummy.matrix);
         });
@@ -44,7 +44,7 @@ const RainSystem = () => {
     );
 };
 
-// ❄️ 高级雪花系统：添加湍流
+// ❄️ Advanced snow system with turbulence offset.
 const SnowSystem = () => {
     const mesh = useRef<THREE.InstancedMesh | null>(null);
     const count = 500;
@@ -63,7 +63,7 @@ const SnowSystem = () => {
         const t = clock.getElapsedTime();
         particles.forEach((p, i) => {
             p.y -= p.speed;
-            // 正弦波模拟飘落的轻盈感
+            // Gentle sine sway sells the floating feel.
             p.x += Math.sin(t + p.factor) * 0.01;
             if (p.y < -10) { p.y = 10; p.x = (Math.random() - 0.5) * 20; }
 
@@ -84,7 +84,7 @@ const SnowSystem = () => {
     );
 };
 
-// ☀️ 太阳与体积光
+// ☀️ Sun mesh + volumetric reference
 type MeshProps = React.ComponentPropsWithoutRef<'mesh'>;
 const Sun = React.forwardRef<THREE.Mesh, MeshProps>((props, ref) => (
     <mesh ref={ref} position={[5, 5, -10]} {...props}>
@@ -120,11 +120,11 @@ export const Scene = () => {
 
     return (
         <>
-            {/* 环境设置 */}
+            {/* Environment setup */}
             <Environment preset={weather === 'sunny' ? "sunset" : "city"} blur={1} />
             <ambientLight intensity={weather === 'rainy' ? 0.1 : 0.4} />
 
-            {/* ☁️ 动态云层 (所有天气都有，但形态不同) */}
+            {/* ☁️ Dynamic clouds for every weather state */}
             <Float speed={weather === 'windy' ? 5 : 1} rotationIntensity={0.2} floatIntensity={1}>
                 <Cloud
                     position={[-4, 2, -5]}
@@ -138,7 +138,7 @@ export const Scene = () => {
                 ) : null}
             </Float>
 
-            {/* 🎥 特效合成器 */}
+            {/* 🎥 Post-processing stack */}
             <EffectComposer>
                 {[
                     maybeGodRays(),
@@ -155,7 +155,7 @@ export const Scene = () => {
                 ]}
             </EffectComposer>
 
-            {/* 🌤️ 天气特有元素 */}
+            {/* 🌤️ Weather-specific elements */}
             {weather === 'sunny' ? (
                 <>
                     <Sun ref={sunRef} />
@@ -167,7 +167,7 @@ export const Scene = () => {
                 <>
                     <directionalLight position={[0, 10, 5]} intensity={0.5} color="#88ccff" />
                     <RainSystem />
-                    {/* 地面反射模拟 (通过底部强光) */}
+                    {/* Simulated ground reflection via lower point light */}
                     <pointLight position={[0, -5, 5]} intensity={2} color="#4444ff" distance={10} />
                 </>
             ) : null}

@@ -9,7 +9,7 @@ import { useWeatherStore, WeatherType } from '@/store/weatherStore';
 import { Scene } from '@/components/Scene';
 import { AudioEngine } from '@/components/AudioEngine';
 
-// Enhanced static data mapping
+// Gemini 3 inspired static data mapping
 const WEATHER_INFO = {
     sunny: {
         temp: '28°',
@@ -98,7 +98,7 @@ export default function Page() {
                             className="flex flex-col items-center"
                         >
                             <PlayCircle size={72} strokeWidth={1} className="mb-6 group-hover:scale-110 transition-transform duration-300" />
-                            <p className="tracking-[0.4em] text-xs font-medium uppercase opacity-80 group-hover:opacity-100 transition-opacity">Enter Experience</p>
+                            <p className="tracking-[0.4em] text-xs font-medium uppercase opacity-80 group-hover:opacity-100 transition-opacity">Enter Gemini 3 Experience</p>
                         </motion.div>
                     </div>
                 )}
@@ -109,7 +109,7 @@ export default function Page() {
                     {/* Header Section */}
                     <div className="mt-6">
                         <div className="flex items-center justify-between opacity-70 mb-8">
-                            <span className="text-xs font-medium tracking-widest uppercase">New York, USA</span>
+                            <span className="text-xs font-medium tracking-widest uppercase">Gemini Station, USA</span>
                             <span className="text-xs font-medium tracking-widest uppercase">{new Date().toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' })}</span>
                         </div>
 
